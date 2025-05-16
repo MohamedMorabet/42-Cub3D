@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:26:13 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/05/16 18:59:31 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/05/16 20:55:34 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ void	intialize_map(t_cub *cub);
 char	*skip_whitespace(char *line);
 char	*trim_and_collapse_spaces(char *line);
 int		hundle_map(char *line, t_cub *cub);
+void    free_split(char **split);
 
 # endif

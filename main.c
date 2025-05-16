@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 11:23:49 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/05/16 20:23:20 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/05/16 20:32:49 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int main(int argc, char **argv)
     //print map
     printf("Map:\n");
     printf("Width: %d, Height: %d\n", cub.map.width, cub.map.height);
-    for (int i = 0; i < cub.map.height; i++)
+    for (int i = 0; cub.map.grid[i]; i++)
     {
         printf("%s\n", cub.map.grid[i]);
     }

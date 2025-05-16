@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:39:26 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/05/16 20:02:31 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/05/16 21:28:34 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,21 @@ int	final_check(t_cub *cub, int count)
 	return (0);
 }
 
+int	final_check2(t_cub *cub)
+{
+	if (cub->map.grid == NULL)
+	{
+		printf("Error\nInvalid map\n");
+		return (1);
+	}
+	if (cub->map.width == 0 || cub->map.height == 0)
+	{
+		printf("Error\nEmpty map\n");
+		return (1);
+	}
+	return (0);
+}
+
 t_cub	parse_map(char *filename)
 {
 	t_cub	cub;
@@ -118,8 +133,13 @@ t_cub	parse_map(char *filename)
 		exit(EXIT_FAILURE);
 	}
 
+	// skip empty lines
+	while ((line = get_next_line(fd)) != NULL && line[0] == '\n')
+	{
+		free(line);
+	}
 	// hundle map
-	while ((line = get_next_line(fd)) != NULL)
+	while ((line = get_next_line(fd)) != NULL && line[0] != '\n')
 	{
 		if (hundle_map(line, &cub) != 0)
 		{
@@ -127,7 +147,22 @@ t_cub	parse_map(char *filename)
 			close(fd);
 			exit(EXIT_FAILURE);
 		}
+		
 		free(line);
+	}
+	if (line && line[0] == '\n')
+	{
+		free(line);
+		printf("Error\nInvalid map\n");
+		close(fd);
+		free_split(cub.map.grid);
+		exit(EXIT_FAILURE);
+	}
+	if (final_check2(&cub) != 0)
+	{
+		close(fd);
+		free_split(cub.map.grid);
+		exit(EXIT_FAILURE);
 	}
 	close(fd);
 	return (cub);
