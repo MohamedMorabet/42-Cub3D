@@ -1,0 +1,56 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/16 11:23:49 by mel-mora          #+#    #+#             */
+/*   Updated: 2025/05/16 20:23:20 by mel-mora         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "includes/cub.h"
+
+int main(int argc, char **argv)
+{
+    t_cub cub;
+
+    if (argc != 2)
+    {
+        write(2, "Error\nUsage: ./cub3d <map.cub>\n", 32);
+        return (1);
+    }
+    cub = parse_map(argv[1]);
+    // if (cub.map.grid == NULL)
+    // {
+    //     write(2, "Error\nInvalid map\n", 18);
+    //     return (1);
+    // }
+
+    //test if the map parsed correctly
+
+    //print colors
+    printf("Floor color: R:%d G:%d B:%d\n\n", cub.floor_color.red, cub.floor_color.green, cub.floor_color.blue);
+    printf("Ceiling color: R:%d G:%d B:%d\n\n", cub.ceiling_color.red, cub.ceiling_color.green, cub.ceiling_color.blue);
+
+    //print textures
+    printf("North texture: %s\n", cub.texture.north);
+    printf("South texture: %s\n", cub.texture.south);
+    printf("West texture: %s\n", cub.texture.west);
+    printf("East texture: %s\n", cub.texture.east);
+    //print map
+    printf("Map:\n");
+    printf("Width: %d, Height: %d\n", cub.map.width, cub.map.height);
+    for (int i = 0; i < cub.map.height; i++)
+    {
+        printf("%s\n", cub.map.grid[i]);
+    }
+    
+
+
+
+    // Initialize the game and start the main loop
+    // ...
+    return (0);
+}
