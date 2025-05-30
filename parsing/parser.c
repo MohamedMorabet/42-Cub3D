@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:39:26 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/05/16 21:28:34 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/05/30 15:18:26 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,80 +29,72 @@ void	intialize_map(t_cub *cub)
 	cub->ceiling_color.blue = -1;
 }
 
-int	parse_line(char *line, t_cub *cub, int *count)
+static void	parse_config_lines(t_cub *cub, int fd)
 {
-	int		res;
+	int		count;
+	char	*line;
 
-	res = hundle_color_texture(line, cub, count);
-	if (res != 0)
+	count = 0;
+	while (count < 6)
 	{
-		if (res == 1)
-			return (printf("Error\nA duplicate texture or color was found\n"), 1); // Already set
-		else if (res == 2 || res == 3)
-			return (printf("Error\nInvalid texture/color\n"), 2); // Invalid color
-		else if (res == 4)
-			return (printf("Error\nInvalid line\n"), 4); // Invalid line
-		else if (res == 5)
-			return (printf("Error\nToo many textures\n"), 5);
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		if (parse_line(line, cub, &count) != 0)
+		{
+			free(line);
+			close(fd);
+			exit(EXIT_FAILURE);
+		}
+		free(line);
 	}
-	
-	return (0);
-}
-
-// Function to open a file and check the .cub extension
-int	open_check(char *filename)
-{
-	int	fd;
-
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-	{
-		perror("Error\nopening file");
-		exit(EXIT_FAILURE);
-	}
-	if (ft_strncmp(filename + ft_strlen(filename) - 4, ".cub", 4) != 0)
+	if (final_check(cub, count) != 0)
 	{
 		close(fd);
-		printf("Error\nFile is not a .cub file\n");
 		exit(EXIT_FAILURE);
 	}
-	return (fd);
 }
 
-int	final_check(t_cub *cub, int count)
+static char	*skip_empty_lines(int fd)
 {
-	if (cub->texture.north == NULL || cub->texture.south == NULL
-		|| cub->texture.west == NULL || cub->texture.east == NULL)
+	char	*line;
+
+	line = get_next_line(fd);
+	while (line && line[0] == '\n')
 	{
-		printf("Error\nMissing texture\n");
-		return (1);
+		free(line);
+		line = get_next_line(fd);
 	}
-	if (cub->floor_color.red == -1 || cub->ceiling_color.red == -1)
-	{
-		printf("Error\nMissing color\n");
-		return (1);
-	}
-	if (count == 0)
-	{
-		printf("Error\nEmpty map\n");
-		return (1);
-	}
-	return (0);
+	return (line);
 }
 
-int	final_check2(t_cub *cub)
+static void	parse_map_lines(t_cub *cub, int fd, char *line)
 {
-	if (cub->map.grid == NULL)
+	while (line && line[0] != '\n')
 	{
-		printf("Error\nInvalid map\n");
-		return (1);
+		if (hundle_map(line, cub) != 0)
+		{
+			free(line);
+			close(fd);
+			exit(EXIT_FAILURE);
+		}
+		free(line);
+		line = get_next_line(fd);
 	}
-	if (cub->map.width == 0 || cub->map.height == 0)
+	if (line && line[0] == '\n')
 	{
-		printf("Error\nEmpty map\n");
-		return (1);
+		free(line);
+		close(fd);
+		free_split(cub->map.grid);
+		exit(write(2, "Error\nInvalid map\n", 18));
 	}
-	return (0);
+	if (final_check2(cub) != 0)
+	{
+		close(fd);
+		free_split(cub->map.grid);
+		exit(EXIT_FAILURE);
+	}
+	close(fd);
 }
 
 t_cub	parse_map(char *filename)
@@ -110,60 +102,11 @@ t_cub	parse_map(char *filename)
 	t_cub	cub;
 	int		fd;
 	char	*line;
-	int count;
 
 	intialize_map(&cub);
 	fd = open_check(filename);
-
-	// hundle 
-	count = 0;
-	while ((line = get_next_line(fd)) != NULL && count < 6)
-	{
-		if (parse_line(line, &cub, &count) != 0)
-		{
-			free(line);
-			close(fd);
-			exit(EXIT_FAILURE);
-		}
-		free(line);
-	}
-	if (final_check(&cub, count) != 0)
-	{
-		close(fd);
-		exit(EXIT_FAILURE);
-	}
-
-	// skip empty lines
-	while ((line = get_next_line(fd)) != NULL && line[0] == '\n')
-	{
-		free(line);
-	}
-	// hundle map
-	while ((line = get_next_line(fd)) != NULL && line[0] != '\n')
-	{
-		if (hundle_map(line, &cub) != 0)
-		{
-			free(line);
-			close(fd);
-			exit(EXIT_FAILURE);
-		}
-		
-		free(line);
-	}
-	if (line && line[0] == '\n')
-	{
-		free(line);
-		printf("Error\nInvalid map\n");
-		close(fd);
-		free_split(cub.map.grid);
-		exit(EXIT_FAILURE);
-	}
-	if (final_check2(&cub) != 0)
-	{
-		close(fd);
-		free_split(cub.map.grid);
-		exit(EXIT_FAILURE);
-	}
-	close(fd);
+	parse_config_lines(&cub, fd);
+	line = skip_empty_lines(fd);
+	parse_map_lines(&cub, fd, line);
 	return (cub);
 }

@@ -13,10 +13,15 @@ INCLUDES = -I$(LIBFT_DIR)
 # Source files
 SRCS = main.c \
 	parsing/parser.c \
+	parsing/parser_utils.c \
 	parsing/colors.c \
 	parsing/texture.c \
 	parsing/hundle_C_T.c \
 	parsing/hundle_map.c \
+	parsing/map_utils.c \
+	parsing/checkers.c \
+	parsing/checkers_helpers.c \
+	parsing/checkers_helpers2.c \
 	utils/GNL/get_next_line.c \
 	utils/GNL/get_next_line_utils.c \
 	utils/utils.c

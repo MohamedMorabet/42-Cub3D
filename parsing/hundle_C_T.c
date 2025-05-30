@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 12:24:42 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/05/16 19:36:21 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:10:32 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,6 @@
 #include <ctype.h>
 #include <string.h>
 
-/* Return codes */
-#define SPEC_COLOR      0
-#define SPEC_TEXTURE    1
-#define ERR_COLOR_ID    2
-#define ERR_TEXTURE_ID  3
-
-/* Skip leading whitespace */
 static char	*skip_leading_ws(char *line)
 {
 	char	*ptr;
@@ -48,7 +41,6 @@ static int	get_spec_type(const char *ptr)
 	space = strchr(ptr, ' ');
 	if (!space)
 		return (-1);
-
 	id_len = (size_t)(space - ptr);
 	if (id_len == 1)
 	{
@@ -58,10 +50,10 @@ static int	get_spec_type(const char *ptr)
 	}
 	if (id_len == 2)
 	{
-		if ((ptr[0]=='N'&&ptr[1]=='O') ||
-		    (ptr[0]=='S'&&ptr[1]=='O') ||
-		    (ptr[0]=='W'&&ptr[1]=='E') ||
-		    (ptr[0]=='E'&&ptr[1]=='A'))
+		if ((ptr[0] == 'N' && ptr[1] == 'O')
+			|| (ptr[0] == 'S' && ptr[1] == 'O')
+			|| (ptr[0] == 'W' && ptr[1] == 'E')
+			|| (ptr[0] == 'E' && ptr[1] == 'A'))
 			return (SPEC_TEXTURE);
 		return (ERR_TEXTURE_ID);
 	}
