@@ -22,6 +22,7 @@ SRCS = main.c \
 	parsing/checkers.c \
 	parsing/checkers_helpers.c \
 	parsing/checkers_helpers2.c \
+	parsing/player_position.c \
 	utils/GNL/get_next_line.c \
 	utils/GNL/get_next_line_utils.c \
 	utils/utils.c

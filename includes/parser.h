@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:26:13 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/05/30 17:17:15 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/07/13 12:26:08 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,20 @@ typedef struct s_texture
 	char	*east;
 }	t_texture;
 
+typedef struct s_player
+{
+	int		x;
+	int		y;
+	char	direction;
+}	t_player;
+
 typedef struct s_cub
 {
 	t_map		map;
 	t_texture	texture;
 	t_color		floor_color;
 	t_color		ceiling_color;
+	t_player	player;
 }	t_cub;
 
 /* Return codes */
@@ -72,4 +80,6 @@ int		check_lines(char **grid, int height);
 int		count_players(char **grid, int height);
 int		final_check(t_cub *cub, int count);
 int		final_check2(t_cub *cub);
+
+void	set_player_position(t_cub *cub);
 #endif

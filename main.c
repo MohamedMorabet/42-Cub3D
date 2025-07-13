@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 11:23:49 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/05/30 17:23:09 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/07/13 12:21:51 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ void	testing_print(t_cub *cub)
 		printf("%s\n", cub->map.grid[i]);
 		i++;
 	}
+	// print player position
+	printf("Player position: X:%d Y:%d Direction:%c\n",
+		cub->player.x, cub->player.y, cub->player.direction);
 }
 
 int	main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 10:39:26 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/05/30 15:18:26 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/07/13 12:19:17 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,6 @@ t_cub	parse_map(char *filename)
 	parse_config_lines(&cub, fd);
 	line = skip_empty_lines(fd);
 	parse_map_lines(&cub, fd, line);
+	set_player_position(&cub);
 	return (cub);
 }
