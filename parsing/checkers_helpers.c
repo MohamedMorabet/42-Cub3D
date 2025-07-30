@@ -12,7 +12,7 @@
 
 #include "../includes/cub.h"
 
-int	is_invalid_position(t_cub *cub, size_t i, size_t j)
+int	is_invalid_position(t_cub_p *cub, size_t i, size_t j)
 {
 	size_t	curr_len;
 	size_t	prev_len;
@@ -31,7 +31,7 @@ int	is_invalid_position(t_cub *cub, size_t i, size_t j)
 	return (0);
 }
 
-int	check_positions(t_cub *cub)
+int	check_positions(t_cub_p *cub)
 {
 	size_t	i;
 	size_t	j;

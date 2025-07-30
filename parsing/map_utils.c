@@ -30,7 +30,7 @@ void	fill_line(char *new_line, char *old_line, int width)
 	new_line[width] = '\0';
 }
 
-void	normalize_map(t_cub *cub)
+void	normalize_map(t_cub_p *cub)
 {
 	int		i;
 	char	*new_line;

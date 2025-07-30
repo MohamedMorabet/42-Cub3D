@@ -12,7 +12,7 @@
 
 #include "../includes/cub.h"
 
-int	parse_line(char *line, t_cub *cub, int *count)
+int	parse_line(char *line, t_cub_p *cub, int *count)
 {
 	int		res;
 

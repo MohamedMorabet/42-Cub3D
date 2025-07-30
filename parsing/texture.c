@@ -21,7 +21,7 @@ int	assign_texture(char **dest, char *line, int *count)
 	return (0);
 }
 
-int	handle_texture(char *line, t_cub *cub, int *texture_count)
+int	handle_texture(char *line, t_cub_p *cub, int *texture_count)
 {
 	line = trim_and_collapse_spaces(line);
 	if (ft_strncmp(line, "NO ", 3) == 0)

@@ -69,7 +69,7 @@ static int	get_spec_type(const char *ptr)
  *   3 invalid texture id,
  *  -1 not a spec line (map logic should take over).
  */
-int	hundle_color_texture(char *line, t_cub *cub, int *count)
+int	hundle_color_texture(char *line, t_cub_p *cub, int *count)
 {
 	char		*ptr;
 	int			spec;

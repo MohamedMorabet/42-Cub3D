@@ -46,7 +46,7 @@ char	*replace_spaces_with_zero(char *line)
 	return (line);
 }
 
-int	hundle_map(char *line, t_cub *cub)
+int	hundle_map(char *line, t_cub_p *cub)
 {
 	char	*trimmed;
 	size_t	len;

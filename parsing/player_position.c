@@ -12,7 +12,7 @@
 
 #include "../includes/cub.h"
 
-void	set_player_position(t_cub *cub)
+void	set_player_p_position(t_cub_p *cub)
 {
 	int	i;
 	int	j;

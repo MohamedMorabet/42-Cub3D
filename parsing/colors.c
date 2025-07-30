@@ -25,11 +25,11 @@ void	free_split(char **split)
 	free(split);
 }
 
-t_color	parse_color(char *line, int *error)
+t_color_p	parse_color(char *line, int *error)
 {
 	int		i;
 	char	**rgb_values;
-	t_color	color;
+	t_color_p	color;
 
 	color.red = -1;
 	color.green = -1;
@@ -52,12 +52,12 @@ t_color	parse_color(char *line, int *error)
 	return (color);
 }
 
-int	is_color_set(t_color color)
+int	is_color_set(t_color_p color)
 {
 	return (color.red != -1 || color.green != -1 || color.blue != -1);
 }
 
-int	check_color(t_color color)
+int	check_color(t_color_p color)
 {
 	if (color.red < 0 || color.red > 255
 		|| color.green < 0 || color.green > 255
@@ -66,7 +66,7 @@ int	check_color(t_color color)
 	return (0);
 }
 
-int	handle_color(char *line, t_cub *cub, int *color_count)
+int	handle_color(char *line, t_cub_p *cub, int *color_count)
 {
 	int	error;
 

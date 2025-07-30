@@ -12,7 +12,7 @@
 
 #include "includes/cub.h"
 
-void	testing_print(t_cub *cub)
+void	testing_print(t_cub_p *cub)
 {
 	int	i;
 	printf("Floor color: R:%d G:%d B:%d\n", cub->floor_color.red,
@@ -38,7 +38,7 @@ void	testing_print(t_cub *cub)
 
 int	main(int argc, char **argv)
 {
-	t_cub	cub;
+	t_cub_p	cub;
 
 	if (argc != 2)
 	{

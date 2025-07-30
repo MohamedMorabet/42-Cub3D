@@ -12,7 +12,7 @@
 
 #include "../includes/cub.h"
 
-void	intialize_map(t_cub *cub)
+void	intialize_map(t_cub_p *cub)
 {
 	cub->map.grid = NULL;
 	cub->map.width = 0;
@@ -29,7 +29,7 @@ void	intialize_map(t_cub *cub)
 	cub->ceiling_color.blue = -1;
 }
 
-static void	parse_config_lines(t_cub *cub, int fd)
+static void	parse_config_lines(t_cub_p *cub, int fd)
 {
 	int		count;
 	char	*line;
@@ -68,7 +68,7 @@ static char	*skip_empty_lines(int fd)
 	return (line);
 }
 
-static void	parse_map_lines(t_cub *cub, int fd, char *line)
+static void	parse_map_lines(t_cub_p *cub, int fd, char *line)
 {
 	while (line && line[0] != '\n')
 	{
@@ -97,9 +97,9 @@ static void	parse_map_lines(t_cub *cub, int fd, char *line)
 	close(fd);
 }
 
-t_cub	parse_map(char *filename)
+t_cub_p	parse_map(char *filename)
 {
-	t_cub	cub;
+	t_cub_p	cub;
 	int		fd;
 	char	*line;
 
@@ -108,6 +108,6 @@ t_cub	parse_map(char *filename)
 	parse_config_lines(&cub, fd);
 	line = skip_empty_lines(fd);
 	parse_map_lines(&cub, fd, line);
-	set_player_position(&cub);
+	set_player_p_position(&cub);
 	return (cub);
 }

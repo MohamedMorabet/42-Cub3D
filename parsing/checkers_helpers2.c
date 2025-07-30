@@ -53,7 +53,7 @@ void	move_spaces_to_zero(char **grid, int height)
 	}
 }
 
-int	count_players(char **grid, int height)
+int	count_player_ps(char **grid, int height)
 {
 	int		player_count;
 	int		i;
