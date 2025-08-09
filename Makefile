@@ -1,48 +1,74 @@
-# Compiler and flags
-CC     = cc
-CFLAGS = -Wall -Wextra -Werror
+# Project
+NAME        = Cub3D
+CC          = cc
+CFLAGS      = -Wall -Wextra -Werror
 
-# Project name
-NAME = Cub3D
+# Libs
+LIBFT_DIR   = utils/Libft
+LIBFT_A     = $(LIBFT_DIR)/libft.a
+MLX_A       = mlx/libmlx.a
+FRAMEWORK   = -Lmlx -lmlx -framework OpenGL -framework AppKit
+INCLUDES    = $(MLX_A) $(LIBFT_A)
 
-# Directories
-LIBFT_DIR = utils/libft
-LIBFT_A = $(LIBFT_DIR)/libft.a
-INCLUDES = -I$(LIBFT_DIR)
+# Sources / Objects
+SRC = srcs/main.c 								\
+      srcs/init.c								\
+      srcs/init2.c								\
+      srcs/init3.c 								\
+      srcs/handlers.c 							\
+      srcs/map.c 								\
+      srcs/raycasting/calc.c 					\
+      srcs/raycasting/dda.c 					\
+      srcs/raycasting/textures.c 				\
+      srcs/raycasting/render.c 					\
+      srcs/raycasting/draw.c 					\
+      srcs/raycasting/frame.c 					\
+      srcs/draw_utils.c 						\
+      srcs/movements.c 							\
+      srcs/movements_utils.c 					\
+      srcs/textures.c 							\
+      srcs/minimap/draw_minimap_map.c 			\
+      srcs/minimap/draw_minimap_player.c 		\
+      srcs/minimap/draw_minimap_rays.c 			\
+      srcs/minimap/minimap.c 					\
+      srcs/parser.c 							\
+      srcs/parser_utils.c 						\
+      srcs/colors.c 							\
+      srcs/texture.c 							\
+      srcs/hundle_C_T.c 						\
+      srcs/hundle_map.c 						\
+      srcs/map_utils.c 							\
+      srcs/checkers.c 							\
+      srcs/checkers_helpers.c 					\
+      srcs/checkers_helpers2.c 					\
+      srcs/player_position.c 					\
+      utils/GNL/get_next_line.c 				\
+      utils/GNL/get_next_line_utils.c 			\
+      utils/utils.c 							\
+      srcs/utils_norm.c
 
-# Source files
-SRCS = main.c \
-	parsing/parser.c \
-	parsing/parser_utils.c \
-	parsing/colors.c \
-	parsing/texture.c \
-	parsing/hundle_C_T.c \
-	parsing/hundle_map.c \
-	parsing/map_utils.c \
-	parsing/checkers.c \
-	parsing/checkers_helpers.c \
-	parsing/checkers_helpers2.c \
-	parsing/player_position.c \
-	utils/GNL/get_next_line.c \
-	utils/GNL/get_next_line_utils.c \
-	utils/utils.c
+OBJ = $(SRC:.c=.o)
 
-OBJS = $(SRCS:.c=.o)
+.PHONY: all clean fclean re libft
 
-# All target
-all: $(LIBFT_A) $(NAME)
+# Build everything
+all: libft $(NAME)
 
-# Link your project with libft
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(INCLUDES) -o $(NAME) $(OBJS) $(LIBFT_A)
+# Link final binary; relink if libft.a changed
+$(NAME): $(OBJ) $(LIBFT_A) $(MLX_A)
+	$(CC) $(OBJ) -o $(NAME) $(INCLUDES) $(FRAMEWORK)
 
-# Build libft before building the project
-$(LIBFT_A):
+# Compile objects
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Always run sub-make; it will no-op if nothing changed
+libft:
 	$(MAKE) -C $(LIBFT_DIR)
 
-# Clean project objects
+# Clean objects (both here and in libft)
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJ)
 	$(MAKE) -C $(LIBFT_DIR) clean
 
 # Full clean
@@ -50,5 +76,4 @@ fclean: clean
 	rm -f $(NAME)
 	$(MAKE) -C $(LIBFT_DIR) fclean
 
-# Recompile all
 re: fclean all

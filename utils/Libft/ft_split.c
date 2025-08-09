@@ -37,9 +37,6 @@ static size_t	count_words(char const *s, char c)
 
 static char	**free_table(char **tab, size_t j)
 {
-	size_t	i;
-
-	i = 0;
 	while (j > 0)
 		free(tab[--j]);
 	free(tab);
