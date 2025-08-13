@@ -42,8 +42,13 @@ void	testing_print(t_cub_p *cub)
 		cub->player.x, cub->player.y, cub->player.direction);
 }
 
+void check_leaks() {
+	system("leaks Cub3D");
+}
+
 int	main(int argc, char **argv)
 {
+	atexit(check_leaks);
 	t_cub_p	cub;
 	t_game	game;
 
@@ -53,7 +58,7 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	cub = parse_map(argv[1]);
-	testing_print(&cub);
+	//testing_print(&cub);
 	init_game(&game, &cub);
 	img_init(&game);
 	load_theme_textures(&game, &cub);

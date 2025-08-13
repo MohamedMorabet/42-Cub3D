@@ -12,34 +12,6 @@
 
 #include "../../includes/game.h"
 
-typedef struct s_rays
-{
-	int		start_x;
-	int		start_y;
-	int		tile_size;
-	int		ray_length;
-	int		rays_count;
-	float	fov;
-	float	angle_step;
-	int		x0;
-	int		y0;
-}	t_rays;
-
-typedef struct s_ray_data
-{
-	float	ray_dir_x;
-	float	ray_dir_y;
-	double	ray_x;
-	double	ray_y;
-	double	step_size;
-	double	distance;
-	int		map_x;
-	int		map_y;
-	char	cell;
-	int		x1;
-	int		y1;
-}	t_ray_data;
-
 static void	init_ray_data(t_ray_data *d, t_game *game, float angle)
 {
 	d->ray_dir_x = cosf(angle);

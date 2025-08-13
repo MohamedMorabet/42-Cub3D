@@ -13,15 +13,6 @@
 #include "../../includes/game.h"
 
 // draw_minimap_player
-typedef struct s_player_mmap
-{
-	int	start_x;
-	int	start_y;
-	int	tile_size;
-	int	px;
-	int	py;
-	int	half;
-}	t_player_mmap;
 
 static void	draw_player_square(t_game *game, int px, int py, int half)
 {

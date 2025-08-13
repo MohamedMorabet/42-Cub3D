@@ -27,7 +27,10 @@ int	handle_key_press(int keycode, t_game *game)
 	else if (keycode == RIGHT)
 		game->input.rotate_right = true;
 	else if (keycode == ESC)
+	{
+		//game_cleanup_and_exit(game);
 		exit(0);
+	}
 	return (0);
 }
 

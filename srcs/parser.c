@@ -109,5 +109,6 @@ t_cub_p	parse_map(char *filename)
 	line = skip_empty_lines(fd);
 	parse_map_lines(&cub, fd, line);
 	set_player_p_position(&cub);
+	close(fd);
 	return (cub);
 }

@@ -12,23 +12,6 @@
 
 #include "../../includes/game.h"
 
-typedef struct s_tile
-{
-	int	sx;
-	int	sy;
-	int	tile_size;
-	int	color;
-}	t_tile;
-
-typedef struct s_mmap
-{
-	int	map_w;
-	int	map_h;
-	int	start_x;
-	int	start_y;
-	int	tile_size;
-}	t_mmap;
-
 static int	get_tile_color(char tile)
 {
 	if (tile == '1')

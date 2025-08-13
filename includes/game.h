@@ -82,6 +82,61 @@
 /*                               DATA STRUCTURES                              */
 /* ************************************************************************** */
 
+typedef struct s_rays
+{
+	int		start_x;
+	int		start_y;
+	int		tile_size;
+	int		ray_length;
+	int		rays_count;
+	float	fov;
+	float	angle_step;
+	int		x0;
+	int		y0;
+}	t_rays;
+
+typedef struct s_ray_data
+{
+	float	ray_dir_x;
+	float	ray_dir_y;
+	double	ray_x;
+	double	ray_y;
+	double	step_size;
+	double	distance;
+	int		map_x;
+	int		map_y;
+	char	cell;
+	int		x1;
+	int		y1;
+}	t_ray_data;
+
+typedef struct s_player_mmap
+{
+	int	start_x;
+	int	start_y;
+	int	tile_size;
+	int	px;
+	int	py;
+	int	half;
+}	t_player_mmap;
+
+typedef struct s_tile
+{
+	int	sx;
+	int	sy;
+	int	tile_size;
+	int	color;
+}	t_tile;
+
+typedef struct s_mmap
+{
+	int	map_w;
+	int	map_h;
+	int	start_x;
+	int	start_y;
+	int	tile_size;
+}	t_mmap;
+
 typedef struct s_door
 {
 	int		x;
@@ -303,4 +358,6 @@ double			get_player_angle(t_player *player);
 void			draw_vertical_line(t_game *game, t_vline v);
 void			draw_line(t_game *game, t_tile_line p);
 
+/* cleaner */
+void	game_cleanup_and_exit(t_game *g);
 #endif
