@@ -360,4 +360,5 @@ void			draw_line(t_game *game, t_tile_line p);
 
 /* cleaner */
 void	game_cleanup_and_exit(t_game *g);
+void	free_cub(t_cub_p *cub);
 #endif

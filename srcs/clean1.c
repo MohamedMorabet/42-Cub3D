@@ -9,67 +9,27 @@ static void	free_ptr(void **p)
 	}
 }
 
-static void	free_map_p_grid(t_map_p *map)
-{
-	if (!map || !map->grid)
-		return;
-
-	if (map->height > 0)
-	{
-		for (int i = 0; i < map->height; ++i)
-			free_ptr((void **)&map->grid[i]);
-	}
-	else
-	{
-		/* Fallback: if height isn't set, free until NULL row */
-		for (int i = 0; map->grid[i]; ++i)
-			free_ptr((void **)&map->grid[i]);
-	}
-	free_ptr((void **)&map->grid);
-}
-
-static void	free_textures(t_texture_p *tex)
-{
-	if (!tex) return;
-	free_ptr((void **)&tex->north);
-	free_ptr((void **)&tex->south);
-	free_ptr((void **)&tex->west);
-	free_ptr((void **)&tex->east);
-}
-
-/* Public API: call this when you're done with `t_cub_p` contents */
 void	free_cub(t_cub_p *cub)
 {
-	if (!cub) return;
+	int	i;
 
-	free_map_p_grid(&cub->map);
-	free_textures(&cub->texture);
-
-	/* Colors and player hold no heap pointers; nothing else to free. */
-	/* Optionally zero structs if you want a fully reset state: */
-	// cub->floor_color = (t_color_p){0,0,0};
-	// cub->ceiling_color = (t_color_p){0,0,0};
-	// cub->player = (t_player_p){0,0,0};
+	if (!cub)
+		return ;
+	if (cub->map.grid)
+	{
+		i = 0;
+		while (i < cub->map.height)
+		{
+			free_ptr((void **)&cub->map.grid[i]);
+			i++;
+		}
+		free_ptr((void **)&cub->map.grid);
+	}
+	free_ptr((void **)&cub->texture.north);
+	free_ptr((void **)&cub->texture.south);
+	free_ptr((void **)&cub->texture.west);
+	free_ptr((void **)&cub->texture.east);
 }
-
-/* Optional helper if you malloc'ed `t_cub_p *cub = malloc(sizeof(*cub))` */
-
-// static void	free_map_grid(t_map *m)
-// {
-// 	int	i;
-
-// 	if (!m || !m->grid)
-// 		return ;
-// 	i = 0;
-// 	while (i < m->height)
-// 	{
-// 		free_ptr((void **)&m->grid[i]);
-// 		i++;
-// 	}
-// 	free_ptr((void **)&m->grid);
-// 	m->width = 0;
-// 	m->height = 0;
-// }
 
 static void	destroy_image(void *mlx, void **img_ptr)
 {

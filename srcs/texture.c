@@ -17,6 +17,7 @@ int	assign_texture(char **dest, char *line, int *count)
 	if (*dest)
 		return (1);
 	*dest = ft_substr(line, 3, ft_strlen(line) - 3);
+	free(line);
 	(*count)++;
 	return (0);
 }

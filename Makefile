@@ -1,7 +1,7 @@
 # Project
 NAME        = Cub3D
 CC          = cc
-CFLAGS      = -MMD -MP
+CFLAGS      = -MMD -MP #-fsanitize=address
 RM          = rm -f
 
 # Libs
@@ -12,7 +12,7 @@ MLX_DIR     = mlx
 MLX_A       = $(MLX_DIR)/libmlx.a
 
 # macOS MiniLibX link flags
-FRAMEWORK   = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+FRAMEWORK   = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit #-fsanitize=address
 
 # Link libraries (order matters: objects first, then libs)
 LDLIBS      = $(LIBFT_A) $(FRAMEWORK)
