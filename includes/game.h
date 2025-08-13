@@ -359,6 +359,5 @@ void			draw_vertical_line(t_game *game, t_vline v);
 void			draw_line(t_game *game, t_tile_line p);
 
 /* cleaner */
-void	game_cleanup_and_exit(t_game *g);
-void	free_cub(t_cub_p *cub);
+void			game_cleanup(t_game *g);
 #endif

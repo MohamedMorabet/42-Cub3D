@@ -79,7 +79,6 @@ void	game_cleanup(t_game *g)
 		return ;
 	destroy_theme(g->mlx, &g->theme);
 	destroy_screen(g->mlx, &g->screen);
-	//free_map_grid(&g->map);
 	free_doors(g);
 	if (g->parsing)
 	{
@@ -90,10 +89,4 @@ void	game_cleanup(t_game *g)
 	{
 		mlx_destroy_window(g->mlx, g->win);
 	}
-	/* Do not free g->mlx on macOS MiniLibX */
-}
-
-void	game_cleanup_and_exit(t_game *g)
-{
-	game_cleanup(g);
 }

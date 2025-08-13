@@ -12,53 +12,29 @@
 
 #include "../includes/game.h"
 
-int	close_window(void)
+int	close_window(t_game	*game)
 {
+	game_cleanup(game);
 	exit(0);
-	return (0);
 }
 
-void	testing_print(t_cub_p *cub)
+void	check_leaks(void)
 {
-	int	i;
-
-	printf("Floor color: R:%d G:%d B:%d\n", cub->floor_color.red,
-		cub->floor_color.green, cub->floor_color.blue);
-	printf("Ceiling color: R:%d G:%d B:%d\n", cub->ceiling_color.red,
-		cub->ceiling_color.green, cub->ceiling_color.blue);
-	printf("North texture: %s\n", cub->texture.north);
-	printf("South texture: %s\n", cub->texture.south);
-	printf("West texture: %s\n", cub->texture.west);
-	printf("East texture: %s\n", cub->texture.east);
-	printf("Map:\n");
-	printf("Width: %d, Height: %d\n", cub->map.width, cub->map.height);
-	i = 0;
-	while (cub->map.grid[i])
-	{
-		printf("%s\n", cub->map.grid[i]);
-		i++;
-	}
-	printf("Player position: X:%d Y:%d Direction:%c\n",
-		cub->player.x, cub->player.y, cub->player.direction);
-}
-
-void check_leaks() {
 	system("leaks Cub3D");
 }
 
 int	main(int argc, char **argv)
 {
-	atexit(check_leaks);
 	t_cub_p	cub;
 	t_game	game;
 
+	atexit (check_leaks);
 	if (argc != 2)
 	{
 		write(2, "Error\nUsage: ./cub3d <map.cub>\n", 32);
 		return (1);
 	}
 	cub = parse_map(argv[1]);
-	//testing_print(&cub);
 	init_game(&game, &cub);
 	img_init(&game);
 	load_theme_textures(&game, &cub);
