@@ -1,7 +1,8 @@
 # Project
 NAME        = Cub3D
 CC          = cc
-CFLAGS      = -MMD -MP #-fsanitize=address
+# CFLAGS      = -MMD -MP #-fsanitize=address
+CFLAGS      = -Wall -Wextra -Werror
 RM          = rm -f
 
 # Libs
@@ -24,6 +25,7 @@ SRC = \
 	srcs/checkers_helpers2.c \
 	srcs/colors.c \
 	srcs/clean1.c \
+	srcs/clean2.c \
 	srcs/draw_utils.c \
 	srcs/handlers.c \
 	srcs/hundle_C_T.c \
@@ -71,21 +73,20 @@ $(NAME): mlx libft $(OBJ)
 
 # Object build (quiet, with dep files)
 %.o: %.c
-	@printf "[CC] %s\n" $<
-	@$(CC) $(CFLAGS) -c $< -o $@
+#	 @printf "cc -Wall -Wextra -Werror %s\n" $<
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Always build sub-libs (they no-op if up to date)
 libft:
 	@$(MAKE) -C $(LIBFT_DIR)
 
-mlx:
-	@$(MAKE) -C $(MLX_DIR)
+# mlx:
+ 	# @$(MAKE) -C $(MLX_DIR)
 
 # Clean objects/deps here and in sublibs
 clean:
 	@$(RM) $(OBJ) $(DEPS)
 	@$(MAKE) -C $(LIBFT_DIR) clean
-	@$(MAKE) -C $(MLX_DIR) clean || true
 
 # Full clean
 fclean: clean

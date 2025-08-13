@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 17:08:14 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/08/09 17:16:42 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/08/13 11:56:55 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,7 +310,7 @@ void			set_player_direction(t_player *player, char dir);
 void			map_init(t_map *map, t_map_p *mapp);
 
 /* handlers */
-int				close_window(void);
+int				close_window(t_game	*game);
 int				handle_key_press(int keycode, t_game *game);
 int				handle_key_release(int keycode, t_game *game);
 int				mouse_move(int x, int y, void *param);
@@ -360,4 +360,12 @@ void			draw_line(t_game *game, t_tile_line p);
 
 /* cleaner */
 void			game_cleanup(t_game *g);
+void			destroy_texture(void *mlx, t_texture *t);
+void			destroy_screen(void *mlx, t_img *scr);
+void			destroy_theme(void *mlx, t_theme *th);
+void			free_doors(t_game *g);
+void			free_ptr(void **p);
+void			destroy_image(void *mlx, void **img_ptr);
+void			free_cub(t_cub_p *cub);
+
 #endif
