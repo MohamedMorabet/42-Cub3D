@@ -1,6 +1,6 @@
 # Project
 NAME        = Cub3D
-CC          = cc
+CC          = gcc
 # CFLAGS      = -MMD -MP #-fsanitize=address
 CFLAGS      = -Wall -Wextra -Werror
 RM          = rm -f
@@ -12,11 +12,20 @@ LIBFT_A     = $(LIBFT_DIR)/libft.a
 MLX_DIR     = mlx
 MLX_A       = $(MLX_DIR)/libmlx.a
 
-# macOS MiniLibX link flags
-FRAMEWORK   = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit #-fsanitize=address
+# Detect the operating system
+UNAME_S := $(shell uname -s)
 
-# Link libraries (order matters: objects first, then libs)
-LDLIBS      = $(LIBFT_A) $(FRAMEWORK)
+ifeq ($(UNAME_S), Linux)								# For WSL2 or any Linux distribution
+    $(info Compiling for Linux / WSL2...)
+	FRAMEWORK   = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
+	LDLIBS      = $(LIBFT_A) $(MLX_A) $(FRAMEWORK)
+else ifeq ($(UNAME_S), Darwin)							# For macOS (iMac)
+    $(info Compiling for macOS...)
+	FRAMEWORK   = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+	LDLIBS      = $(LIBFT_A) $(FRAMEWORK)
+else
+	$(error Unsupported OS: $(UNAME_S). Please add configuration for it in Makefile.)
+endif
 
 # Sources (alphabetical)
 SRC = \
@@ -61,7 +70,6 @@ SRC = \
 OBJ  = $(SRC:.c=.o)
 DEPS = $(OBJ:.o=.d)
 HEADS = includes/game.h includes/parser.h
-.PHONY: all clean fclean re libft mlx norm
 
 # Build everything
 all: $(NAME)
@@ -73,15 +81,11 @@ $(NAME): mlx libft $(OBJ)
 
 # Object build (quiet, with dep files)
 %.o: %.c
-#	 @printf "cc -Wall -Wextra -Werror %s\n" $<
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 # Always build sub-libs (they no-op if up to date)
 libft:
 	@$(MAKE) -C $(LIBFT_DIR)
-
-# mlx:
- 	# @$(MAKE) -C $(MLX_DIR)
 
 # Clean objects/deps here and in sublibs
 clean:
@@ -103,3 +107,5 @@ norm:
 
 # Include auto-generated dep files
 -include $(DEPS)
+
+.PHONY: all clean fclean re libft mlx norm

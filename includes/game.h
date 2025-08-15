@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 17:08:14 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/08/13 11:56:55 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/08/15 21:42:57 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,27 @@
 # define BLOCK                 64
 # define DEBUG                 0
 
-/* Keycodes */
-# define Z                     6
-# define Q                     12
-# define W                     13
-# define A                     0
-# define S                     1
-# define D                     2
-# define ESC                   53
-# define LEFT                  123
-# define RIGHT                 124
+/* Keycodes - MacOS*/
+// # define Z                     6
+// # define Q                     12
+// # define W                     13
+// # define A                     0
+// # define S                     1
+// # define D                     2
+// # define ESC                   53
+// # define LEFT                  123
+// # define RIGHT                 124
+
+/* Keycodes - Linux X11 */
+# define Z                     122
+# define Q                     113
+# define W                     119
+# define A                     97
+# define S                     115
+# define D                     100
+# define ESC                   65307
+# define LEFT                  65361
+# define RIGHT                 65363
 
 # define PI                    3.14159265359
 
