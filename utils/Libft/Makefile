@@ -27,19 +27,19 @@ BOBJS= ${BSRCS:.c=.o}
 all : ${NAME}
 
 clean :
-	rm -rf ${OBJS} ${BOBJS}
+	@rm -rf ${OBJS} ${BOBJS}
 
 bonus : ${BOBJS}
-	${AR} rcs ${NAME} ${BOBJS}
+	@${AR} rcs ${NAME} ${BOBJS}
 
 ${NAME} : ${OBJS}
-	${AR} rcs ${NAME} ${OBJS}
+	@${AR} rcs ${NAME} ${OBJS}
 
 %.o : %.c libft.h
-	${CC} ${CFLAGS} -o $@ -c $<
+	@${CC} ${CFLAGS} -o $@ -c $<
 
 fclean : clean
-	rm -rf ${NAME}
+	@rm -rf ${NAME}
 
 re : fclean all
 
