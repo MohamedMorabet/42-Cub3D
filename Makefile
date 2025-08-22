@@ -1,7 +1,7 @@
 # Project
 NAME        = Cub3D
 CC          = cc
-# CFLAGS      = -MMD -MP #-fsanitize=address
+CFLAGS      = -MMD -MP #-fsanitize=address
 CFLAGS      = -Wall -Wextra -Werror
 RM          = rm -f
 
